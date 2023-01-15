@@ -11,6 +11,7 @@ use App\Models\GroupesPreparationBrief;
 use App\Models\PreparationBrief;
 use App\Models\Tache;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 
 class DashboardController extends Controller
@@ -50,13 +51,20 @@ class DashboardController extends Controller
         $tasks_ids = [];
         foreach ($tasks as $task) {
          $tasks_ids[] =  $task->id;
-          }
-        // dump($tasks_ids);
+          }    
+        // dd($tasks_ids);
 
-        foreach ($tasks_ids as $key => $val) {
-         $total_done_task = Tache::where('Etat','=','terminer')->get()->where('preparation_brief_id', '=', 4)->count();
+        $total_done_task = Tache::all()->count();
+        // $tasks_per_brief = Tache::where('tache.preparation_brief_id')->get();
         
+        $tasks_per_brief = DB::select("SELECT * FROM `tache` ORDER BY `tache`.`preparation_brief_id` ASC");
+
+        
+        foreach ($tasks_ids as $key => $val) {
+       
         }
+
+       
      
 
        // To add Av here.
